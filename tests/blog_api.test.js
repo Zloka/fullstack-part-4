@@ -59,6 +59,19 @@ describe('blog api', () => {
     expect(response.body).toHaveLength(3)
   })
 
+  test('should default to 0 likes if no likes are provided', async () => {
+    const newBlog = {
+      title: 'Test Title 3',
+      author: 'Test Author 3',
+      url: 'http://www.test.url/3',
+    }
+    await api.post('/api/Blogs').send(newBlog)
+    const response = await api.get('/api/Blogs')
+    response.body.forEach(responseBlog => {
+      expect(responseBlog.likes).toBeGreaterThanOrEqual(0)
+    })
+  })
+
   afterAll(() => {
     mongoose.connection.close()
   })
