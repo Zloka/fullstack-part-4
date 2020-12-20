@@ -72,6 +72,25 @@ describe('blog api', () => {
     })
   })
 
+  test('should respond with a 400 status code if title or url is missing', async () => {
+    const newBlog = {
+      author: 'Test Author 3',
+      url: 'http://www.test.url/3',
+    }
+
+    await api
+      .post('/api/Blogs').send(newBlog)
+      .expect(400)
+
+    newBlog.title = 'some title'
+    delete newBlog.url
+
+    await api
+      .post('/api/Blogs').send(newBlog)
+      .expect(400)
+  })
+
+
   afterAll(() => {
     mongoose.connection.close()
   })
