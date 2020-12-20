@@ -39,6 +39,14 @@ describe('blog api', () => {
     expect(response.body).toHaveLength(2)
   })
 
+  test('should have a property called id for each blog', async () => {
+    const response = await api.get('/api/Blogs')
+
+    response.body.forEach(responseBlog => {
+      expect(responseBlog.id).toBeDefined()
+    })
+  })
+
   afterAll(() => {
     mongoose.connection.close()
   })
