@@ -6,12 +6,12 @@
   "author": "Zacharias Levander",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
     "deploy": "git push heroku master",
     "logs:prod": "heroku logs --tail",
     "lint": "eslint .",
-    "test": "NODE_ENV=test jest --verbose --runInBand"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "dependencies": {
     "cors": "^2.8.5",
