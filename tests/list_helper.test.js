@@ -25,6 +25,15 @@ const blog3 = {
   __v: 0
 }
 
+const blog4 = {
+  _id: 'testid4',
+  title: 'Test Title 4',
+  author: 'Test Author 3',
+  url: 'http://www.test.url/4',
+  likes: 4,
+  __v: 0
+}
+
 test('dummy returns one', () => {
   const blogs = []
 
@@ -58,5 +67,17 @@ describe('favorite blog', () => {
   test('should return the blog with the most likes', () => {
     const result = listHelper.favoriteBlog([blog1, blog2, blog3])
     expect(result).toEqual(blog1)
+  })
+})
+
+describe('most blogs', () => {
+  test('should return undefined when the list is empty', () => {
+    const result = listHelper.mostBlogs([])
+    expect(result).toBe(undefined)
+  })
+
+  test('should return the author with the most blogs', () => {
+    const result = listHelper.mostBlogs([blog1, blog2, blog3, blog4])
+    expect(result).toEqual({ author: blog4.author, blogs: 2 })
   })
 })
