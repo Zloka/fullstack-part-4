@@ -47,6 +47,18 @@ describe('blog api', () => {
     })
   })
 
+  test('should add a blog when sending a correctly formed POST-request', async () => {
+    const newBlog = {
+      title: 'Test Title 3',
+      author: 'Test Author 3',
+      url: 'http://www.test.url/3',
+      likes: 3,
+    }
+    await api.post('/api/Blogs').send(newBlog)
+    const response = await api.get('/api/Blogs')
+    expect(response.body).toHaveLength(3)
+  })
+
   afterAll(() => {
     mongoose.connection.close()
   })
