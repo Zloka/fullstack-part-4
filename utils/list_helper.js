@@ -28,9 +28,26 @@ const mostBlogs = (blogs) => {
   return arr[0]
 }
 
+const mostLikes = (blogs) => {
+  const blogsObject = blogs.reduce((acc, cur) => {
+    const clone = lodash.cloneDeep(acc)
+    clone[cur.author] = (clone[cur.author] || 0) + cur.likes
+    return clone
+  }, {})
+
+  const arr = Object.keys(blogsObject).map(key => {
+    const val = blogsObject[key]
+
+    return { author: key, likes: val }
+  }).sort((a, b) => a.likes < b.likes)
+
+  return arr[0]
+}
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }

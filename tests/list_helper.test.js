@@ -81,3 +81,15 @@ describe('most blogs', () => {
     expect(result).toEqual({ author: blog4.author, blogs: 2 })
   })
 })
+
+describe('most likes', () => {
+  test('should return undefined when the list is empty', () => {
+    const result = listHelper.mostLikes([])
+    expect(result).toBe(undefined)
+  })
+
+  test('should return the author with the most likes in total across all of their blogs', () => {
+    const result = listHelper.mostLikes([blog1, blog2, blog3, blog4])
+    expect(result).toEqual({ author: blog4.author, likes: blog4.likes + blog3.likes })
+  })
+})
