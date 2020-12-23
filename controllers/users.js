@@ -4,12 +4,19 @@ const User = require('../models/user')
 
 usersRouter.post('/', async (request, response) => {
   const body = request.body
+  const { username, password } = body
+
+  if (!username || !password || username.length < 3 || password.length < 3) {
+    return response.status(400).json({
+      error: 'Requires both username and password to be provided and longer than 3!'
+    })
+  }
 
   const saltRounds = 10
-  const passwordHash = await bcrypt.hash(body.password, saltRounds)
+  const passwordHash = await bcrypt.hash(password, saltRounds)
 
   const user = new User({
-    username: body.username,
+    username,
     name: body.name,
     passwordHash,
   })
